@@ -28,7 +28,7 @@ void VL53L1XSensor::dump_config() {
 #define I2C_SDA 19
 #define I2C_SCL 22
 
-TwoWire I2CWire;
+TwoWire I2CWire=TwoWire(0);
 Adafruit_VL53L1X vl53;
 
 
