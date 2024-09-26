@@ -91,7 +91,7 @@ void VL53L1XSensor::loop() {
     }
     float range_m = distance / 1e3f;
  
-    this->publish_state(irange_m);
+    this->publish_state(range_m);
     vl53.clearInterrupt();
   }
 }
