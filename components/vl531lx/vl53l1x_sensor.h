@@ -18,7 +18,6 @@ class VL53L1XSensor : public sensor::Sensor, public PollingComponent, public i2c
   void setup() override;
 
   void dump_config() override;
-  void update() override;
 
   void loop() override;
 
