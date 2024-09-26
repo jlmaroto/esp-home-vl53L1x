@@ -67,6 +67,7 @@ void VL53L1XSensor::loop() {
     this->publish_state(range_m);
     vl53.clearInterrupt();
   }*/
+    this->publish_state(2.0);
 }
 
   
