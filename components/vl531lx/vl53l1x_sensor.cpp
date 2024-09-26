@@ -56,17 +56,20 @@ void VL53L1XSensor::loop() {
   int16_t distance;
 
   if(vl53.dataReady()){
-    distance = vl53.distance();
-    if (distance == -1){
-       ESP_LOGD(TAG, "'%s' - Couldn't get distance: ", this->name_.c_str());
-       ESP_LOGD(TAG, "'%s' - Couldn't get distance: ", this->name_.c_str());
-       return;
-    }
-    float range_m = distance / 1e3f;
+//    distance = vl53.distance();
+//    if (distance == -1){
+//       ESP_LOGD(TAG, "'%s' - Couldn't get distance: ", this->name_.c_str());
+//       ESP_LOGD(TAG, "'%s' - Couldn't get distance: ", this->name_.c_str());
+//       return;
+//    }
+//    float range_m = distance / 1e3f;
  
-    this->publish_state(range_m);
-    vl53.clearInterrupt();
+//    this->publish_state(range_m);
+ //   vl53.clearInterrupt();
+  }else{
+    this->publish_state(1);
   }
+
 }
 
   
