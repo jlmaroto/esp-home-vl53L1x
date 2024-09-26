@@ -15,12 +15,6 @@ VL53L1XSensor::VL53L1XSensor() { VL53L1XSensor::vl53_sensors.push_back(this); }
 
 void VL53L1XSensor::dump_config() {
   LOG_SENSOR("", "VL53L1X", this);
-  LOG_UPDATE_INTERVAL(this);
-  LOG_I2C_DEVICE(this);
-  if (this->enable_pin_ != nullptr) {
-    LOG_PIN("  Enable Pin: ", this->enable_pin_);
-  }
-  ESP_LOGCONFIG(TAG, "  Timeout: %u%s", this->timeout_us_, this->timeout_us_ > 0 ? "us" : " (no timeout)");
 }
 
 #define IRQ_PIN 12
