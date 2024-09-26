@@ -38,9 +38,10 @@ void VL53L1XSensor::setup() {
   if(!vl53.begin(0x29,&I2CWire)){
     ESP_LOGD(TAG, "'%s' - Error initing VL53L1X", this->name_.c_str());
     ESP_LOGD(TAG, "'%s' - %s", this->name_.c_str(),vl53.vl_status);
-    while(1){ 
-      delay(10);
-    }
+  //  while(1){ 
+  //    delay(10);
+  //  }
+    return;
   }
 
   ESP_LOGD(TAG, "'%s' - VL53L1X sensor OK!", this->name_.c_str());
