@@ -34,7 +34,7 @@ void VL53L1XSensor::setup() {
   vl53 = Adafruit_VL53L1X(XSHUT_PIN,IRQ_PIN);
 
   I2CWire.begin(I2C_SDA, I2C_SCL, 400000);
-  ESP_LOGD(TAG, "'%s' - wire begin", this->name_.c_str());
+//  ESP_LOGD(TAG, "'%s' - wire begin", this->name_.c_str());
 //  if(!vl53.begin(0x29,&I2CWire)){
 //    ESP_LOGD(TAG, "'%s' - Error initing VL53L1X", this->name_.c_str());
 //    ESP_LOGD(TAG, "'%s' - %s", this->name_.c_str(),vl53.vl_status);
