@@ -35,25 +35,25 @@ void VL53L1XSensor::setup() {
 
   I2CWire.begin(I2C_SDA, I2C_SCL, 400000);
   ESP_LOGD(TAG, "'%s' - wire begin", this->name_.c_str());
-  /*if(!vl53.begin(0x29,&I2CWire)){
+  if(!vl53.begin(0x29,&I2CWire)){
     ESP_LOGD(TAG, "'%s' - Error initing VL53L1X", this->name_.c_str());
     ESP_LOGD(TAG, "'%s' - %s", this->name_.c_str(),vl53.vl_status);
     while(1){ 
       delay(10);
     }
   }
-*/
+
   ESP_LOGD(TAG, "'%s' - VL53L1X sensor OK!", this->name_.c_str());
-//  ESP_LOGD(TAG, "'%s' - sensor Id!", this->name_.c_str(),vl53.sensorID(),HEX);
+  ESP_LOGD(TAG, "'%s' - sensor Id!", this->name_.c_str(),vl53.sensorID(),HEX);
  
-  /*vl53.setTimingBudget(50);
-*/
+  vl53.setTimingBudget(50);
+
 
   ESP_LOGD(TAG, "'%s' - setup END", this->name_.c_str());
 }
 
 void VL53L1XSensor::loop() {
-/*  int16_t distance;
+  int16_t distance;
 
   if(vl53.dataReady()){
     distance = vl53.distance();
@@ -66,8 +66,7 @@ void VL53L1XSensor::loop() {
  
     this->publish_state(range_m);
     vl53.clearInterrupt();
-  }*/
-    this->publish_state(2.150);
+  }
 }
 
   
