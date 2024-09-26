@@ -55,7 +55,7 @@ void VL53L1XSensor::setup() {
 void VL53L1XSensor::loop() {
   int16_t distance;
 
-  if(vl53.dataReady()){
+//  if(vl53.dataReady()){
 //    distance = vl53.distance();
 //    if (distance == -1){
 //       ESP_LOGD(TAG, "'%s' - Couldn't get distance: ", this->name_.c_str());
@@ -66,9 +66,9 @@ void VL53L1XSensor::loop() {
  
 //    this->publish_state(range_m);
  //   vl53.clearInterrupt();
-  }else{
+//  }else{
     this->publish_state(1);
-  }
+//  }
 
 }
 
