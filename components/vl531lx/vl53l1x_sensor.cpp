@@ -46,7 +46,7 @@ void VL53L1XSensor::setup() {
   ESP_LOGD(TAG, "'%s' - VL53L1X sensor OK!", this->name_.c_str());
   ESP_LOGD(TAG, "'%s' - sensor Id!", this->name_.c_str(),vl53.sensorID(),HEX);
  
-  vl53.setTimingBudget(50);
+ // vl53.setTimingBudget(50);
 
 
   ESP_LOGD(TAG, "'%s' - setup END", this->name_.c_str());
