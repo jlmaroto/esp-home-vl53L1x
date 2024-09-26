@@ -16,7 +16,8 @@ VL53L1XSensor::VL53L1XSensor() { VL53L1XSensor::vl53_sensors.push_back(this); }
 void VL53L1XSensor::dump_config() {
   LOG_SENSOR("", "VL53L1X", this);
 }
-
+void VL53L1XSensor::update(){
+}
 #define IRQ_PIN 12
 #define XSHUT_PIN 23
 #define I2C_SDA 19
