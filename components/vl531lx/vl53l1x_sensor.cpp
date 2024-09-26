@@ -41,12 +41,16 @@ void VL53L1XSensor::setup() {
   if(!vl53.begin(0x29,&I2CWire)){
     ESP_LOGD(TAG, "'%s' - Error initing VL53L1X", this->name_.c_str());
     ESP_LOGD(TAG, "'%s' - %s", this->name_.c_str(),vl53.vl_status);
-    return;
+    while(1){ 
+      delay(10);
+    }
   }
 
   ESP_LOGD(TAG, "'%s' - VL53L1X sensor OK!", this->name_.c_str());
   ESP_LOGD(TAG, "'%s' - sensor Id!", this->name_.c_str(),vl53.sensorID(),HEX);
-  
+ 
+  vl53.setTimingBudget(50);
+
 
   ESP_LOGD(TAG, "'%s' - setup END", this->name_.c_str());
 }
@@ -76,33 +80,19 @@ void VL53L1XSensor::update() {
 }
 
 void VL53L1XSensor::loop() {
-  if (this->initiated_read_) {
-    if (reg(0x00).get() & 0x01) {
-      // waiting
-    } else {
-      // done
-      // wait until reg(0x13) & 0x07 is set
-      this->initiated_read_ = false;
-      this->waiting_for_interrupt_ = true;
-    }
-  }
-  if (this->waiting_for_interrupt_) {
-    if (reg(0x13).get() & 0x07) {
-      uint16_t range_mm = 0;
-      this->read_byte_16(0x14 + 10, &range_mm);
-      reg(0x0B) = 0x01;
-      this->waiting_for_interrupt_ = false;
+  int16_t distance;
 
-      if (range_mm >= 8190) {
-        ESP_LOGD(TAG, "'%s' - Distance is out of range, please move the target closer", this->name_.c_str());
-        this->publish_state(NAN);
-        return;
-      }
-
-      float range_m = range_mm / 1e3f;
-      ESP_LOGD(TAG, "'%s' - Got distance %.3f m", this->name_.c_str(), range_m);
-      this->publish_state(range_m);
+  if(vl53.dataReady()){
+    distance = vl53.distance();
+    if (distance == -1){
+       ESP_LOGD(TAG, "'%s' - Couldn't get distance: ", this->name_.c_str());
+       ESP_LOGD(TAG, "'%s' - Couldn't get distance: ", this->name_.c_str());
+       return;
     }
+    float range_m = distance / 1e3f;
+ 
+    this->publish_state(irange_m);
+    vl53.clearInterrupt();
   }
 }
 
