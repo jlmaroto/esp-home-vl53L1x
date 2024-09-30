@@ -67,7 +67,7 @@ void VL53L1XSensor::loop() {
        ESP_LOGD(TAG, "'%s' - Couldn't get distance: ", this->name_.c_str());
        return;
     }
-    float range_m = distance / 1e3f;
+    float range_m = distance / 1000.0;
  
     this->publish_state(range_m);
     vl53.clearInterrupt();
