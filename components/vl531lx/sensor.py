@@ -57,7 +57,7 @@ CONFIG_SCHEMA = cv.All(
             cv.Optional(CONF_IRQ_PIN): pins.gpio_input_pin_schema
         }
     )
-    .extend(cv.polling_component_schema("60s"))
+    .extend(cv.polling_component_schema("60s")),
     check_keys,
 )
 
