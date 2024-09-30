@@ -41,9 +41,9 @@ void VL53L1XSensor::setup() {
   }
 
   ESP_LOGD(TAG, "'%s' - VL53L1X sensor OK!", this->name_.c_str());
-//  ESP_LOGD(TAG, "'%s' - sensor Id!", this->name_.c_str(),vl53.sensorID(),HEX);
+  ESP_LOGD(TAG, "'%s' - sensor Id!", this->name_.c_str(),vl53.sensorID(),HEX);
  
- // vl53.setTimingBudget(50);
+  vl53.setTimingBudget(50);
 
 
   ESP_LOGD(TAG, "'%s' - setup END", this->name_.c_str());
@@ -52,20 +52,20 @@ void VL53L1XSensor::setup() {
 void VL53L1XSensor::loop() {
   int16_t distance;
 
-//  if(vl53.dataReady()){
-//    distance = vl53.distance();
-//    if (distance == -1){
-//       ESP_LOGD(TAG, "'%s' - Couldn't get distance: ", this->name_.c_str());
-//       ESP_LOGD(TAG, "'%s' - Couldn't get distance: ", this->name_.c_str());
-//       return;
-//    }
-//    float range_m = distance / 1e3f;
+  if(vl53.dataReady()){
+    distance = vl53.distance();
+    if (distance == -1){
+       ESP_LOGD(TAG, "'%s' - Couldn't get distance: ", this->name_.c_str());
+       ESP_LOGD(TAG, "'%s' - Couldn't get distance: ", this->name_.c_str());
+       return;
+    }
+    float range_m = distance / 1e3f;
  
-//    this->publish_state(range_m);
- //   vl53.clearInterrupt();
-//  }else{
-//    this->publish_state(1);
-//  }
+    this->publish_state(range_m);
+    vl53.clearInterrupt();
+  }else{
+    this->publish_state(1);
+  }
 
 }
 
