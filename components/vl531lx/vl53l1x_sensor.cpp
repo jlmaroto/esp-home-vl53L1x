@@ -31,7 +31,7 @@ void VL53L1XSensor::setup() {
   //I2CWire = TwoWire(0);
   //vl53 = Adafruit_VL53L1X(XSHUT_PIN,IRQ_PIN);
 
-  Wire.begin();
+  Wire.begin(I2C_SDA,I2C_SCL);
 
   ESP_LOGD(TAG, "'%s' - wire begin", this->name_.c_str());
   if(!vl53.begin(0x29,&Wire)){
