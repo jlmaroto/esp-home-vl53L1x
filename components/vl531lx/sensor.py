@@ -1,6 +1,6 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
-from esphome.components import sensor
+from esphome.components import i2c, sensor
 from esphome.const import (
     STATE_CLASS_MEASUREMENT,
     UNIT_METER,
@@ -11,10 +11,11 @@ from esphome.const import (
 )
 from esphome import pins
 
+DEPENDENCIES = ["i2c"]
 
 vl53l1x_ns = cg.esphome_ns.namespace("vl53l1x")
 VL53L1XSensor = vl53l1x_ns.class_(
-    "VL53L1XSensor", sensor.Sensor, cg.PollingComponent
+    "VL53L1XSensor", sensor.Sensor, cg.PollingComponent, i2c.I2CDevice
 )
 
 CONF_SIGNAL_RATE_LIMIT = "signal_rate_limit"
@@ -57,7 +58,8 @@ CONFIG_SCHEMA = cv.All(
             cv.Optional(CONF_IRQ_PIN): pins.gpio_input_pin_schema
         }
     )
-    .extend(cv.polling_component_schema("60s")),
+    .extend(cv.polling_component_schema("60s"))
+    .extend(i2c.i2c_device_schema(0x29)),
     check_keys,
 )
 
@@ -73,3 +75,4 @@ async def to_code(config):
 #        enable = await cg.gpio_pin_expression(config[CONF_ENABLE_PIN])
 #        cg.add(var.set_enable_pin(enable))
 #
+    await i2c.register_i2c_device(var, config)
