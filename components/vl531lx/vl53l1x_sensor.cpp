@@ -65,6 +65,7 @@ void VL53L1XSensor::loop() {
     this->publish_state(range_m);
     vl53.clearInterrupt();
   }else{
+    ESP_LOGD(TAG, "'%s' - no data", this->name_.c_str());
 //    this->publish_state(-1);
   }
 
