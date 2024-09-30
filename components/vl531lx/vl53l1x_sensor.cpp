@@ -42,7 +42,13 @@ void VL53L1XSensor::setup() {
 
   ESP_LOGD(TAG, "'%s' - VL53L1X sensor OK!", this->name_.c_str());
   ESP_LOGD(TAG, "'%s' - sensor Id! %i", this->name_.c_str(),vl53.sensorID(),HEX);
- 
+
+
+  if (! vl53.startRanging()) {
+    ESP_LOGD(TAG, "'%s' - Couldn't start ranging: %d ", this->name_.c_str(),vl53.vl_status);
+    return;
+  }
+
   vl53.setTimingBudget(50);
 
 
