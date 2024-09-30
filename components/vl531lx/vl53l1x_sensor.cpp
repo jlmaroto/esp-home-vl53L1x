@@ -23,7 +23,6 @@ void VL53L1XSensor::update(){
 #define I2C_SDA 19
 #define I2C_SCL 22
 
-TwoWire I2CWire=TwoWire(1);
 Adafruit_VL53L1X vl53 = Adafruit_VL53L1X(XSHUT_PIN,IRQ_PIN);
 
 void VL53L1XSensor::setup() {
@@ -32,9 +31,10 @@ void VL53L1XSensor::setup() {
   //I2CWire = TwoWire(0);
   //vl53 = Adafruit_VL53L1X(XSHUT_PIN,IRQ_PIN);
 
-  I2CWire.begin(I2C_SDA, I2C_SCL, 400000);
+  Wire.begin();
+
   ESP_LOGD(TAG, "'%s' - wire begin", this->name_.c_str());
-  if(!vl53.begin(0x29,&I2CWire)){
+  if(!vl53.begin(0x29,&Wire)){
     ESP_LOGD(TAG, "'%s' - Error initing VL53L1X", this->name_.c_str());
     ESP_LOGD(TAG, "'%s' - %s", this->name_.c_str(),vl53.vl_status);
     return;
