@@ -61,7 +61,7 @@ void VL53L1XSensor::loop() {
   if(vl53.dataReady()){
     distance = vl53.distance();
     if (distance == -1){
-       ESP_LOGD(TAG, "'%s' - Couldn't get distance: %d ", this->name_.c_str(),vl53.status);
+       ESP_LOGD(TAG, "'%s' - Couldn't get distance: %d ", this->name_.c_str(),vl53.vl_status);
        ESP_LOGD(TAG, "'%s' - Couldn't get distance: ", this->name_.c_str());
        return;
     }
